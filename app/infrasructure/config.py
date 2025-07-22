@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from pydantic import BaseSettings, PostgresDsn
+from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     DATABASE_HOST: str
@@ -10,9 +10,9 @@ class Settings(BaseSettings):
     DATABASE_PASSWORD: str
 
     @property
-    def database_url(self) -> PostgresDsn:
+    def database_url(self) -> str:
         return (
-            f"postgresql://{self.DATABASE_USER}:{self.DATABASE_PASSWORD}"
+            f"postgresql+asyncpg://{self.DATABASE_USER}:{self.DATABASE_PASSWORD}"
             f"@{self.DATABASE_HOST}:{self.DATABASE_PORT}/{self.DATABASE_NAME}"
         )
 
