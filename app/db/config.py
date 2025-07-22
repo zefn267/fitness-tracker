@@ -1,6 +1,6 @@
-from functools import lru_cache
+import os
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     DATABASE_HOST: str
@@ -9,16 +9,15 @@ class Settings(BaseSettings):
     DATABASE_USER: str
     DATABASE_PASSWORD: str
 
-    @property
-    def database_url(self) -> str:
+    model_config = SettingsConfigDict(
+        env_file=os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"),
+    )
+
+    def get_db_url(self):
         return (
             f"postgresql+asyncpg://{self.DATABASE_USER}:{self.DATABASE_PASSWORD}"
             f"@{self.DATABASE_HOST}:{self.DATABASE_PORT}/{self.DATABASE_NAME}"
         )
 
-    class Config:
-        env_file = ".env"
 
-@lru_cache
-def get_settings():
-    return Settings()
+settings = Settings()
