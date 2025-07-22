@@ -5,6 +5,6 @@ from typing import Optional
 class ExerciseCreate(BaseModel):
     name: str
     weight: Optional[float]
-    approaches: int
-    times: int
+    sets: int
+    reps: int
     description: Optional[str]
