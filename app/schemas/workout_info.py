@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from app.schemas.exercise_info import ExerciseInfo
 from typing import Optional, List
 from datetime import date
@@ -9,5 +9,4 @@ class WorkoutInfo(BaseModel):
     exercises: List[ExerciseInfo]
     description: Optional[str]
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

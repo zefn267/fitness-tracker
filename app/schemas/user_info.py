@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional
 from app.schemas.profile import Profile
 
@@ -8,5 +8,4 @@ class UserInfo(BaseModel):
     email: EmailStr
     profile: Optional[Profile]
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
