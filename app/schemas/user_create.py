@@ -1,5 +1,5 @@
 import enum
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class GenderEnum(str, enum.Enum):
@@ -7,13 +7,11 @@ class GenderEnum(str, enum.Enum):
     FEMALE = "Женский"
 
 
-class UserInfo(BaseModel):
-    id: int
+class UserCreate(BaseModel):
     user_name: str
+    password: str
     email: str
 
     first_name: str
     age: int
     gender: GenderEnum
-
-    model_config = ConfigDict(from_attributes=True)
