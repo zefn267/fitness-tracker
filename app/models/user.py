@@ -1,19 +1,18 @@
-from typing import Optional
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+import enum
+from sqlalchemy.orm import Mapped, mapped_column
 from app.db.database import Base
-from app.models.profile import Profile
+
+
+class GenderEnum(str, enum.Enum):
+    MALE = "Мужской"
+    FEMALE = "Женский"
 
 
 class User(Base):
     user_name: Mapped[str] = mapped_column(unique=True)
     email: Mapped[str] = mapped_column(unique=True)
     password: Mapped[str]
-    profile_id: Mapped[Optional[int]] = mapped_column(ForeignKey("profiles.id"))
-    profile: Mapped[Optional[Profile]] = relationship(
-        Profile,
-        back_populates="user",
-        uselist=False,
-        lazy="joined"
-    )
 
+    first_name: Mapped[str]
+    age: Mapped[int]
+    gender: Mapped[GenderEnum]
