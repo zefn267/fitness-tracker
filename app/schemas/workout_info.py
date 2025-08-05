@@ -6,7 +6,7 @@ from datetime import date
 class WorkoutInfo(BaseModel):
     id: int
     date: date
-    exercises: List[ExerciseInfo]
+    exercises: Optional[List[ExerciseInfo]]
     description: Optional[str]
 
     model_config = ConfigDict(from_attributes=True)
