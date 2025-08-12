@@ -1,9 +1,12 @@
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped, declared_attr
 from sqlalchemy.ext.asyncio import AsyncAttrs, create_async_engine, async_sessionmaker
-from app.db.config import settings
+from app.config import settings
 
 
-DATABASE_URL = settings.get_db_url()
+DATABASE_URL = (
+    f"postgresql+asyncpg://{settings.DATABASE_USER}:{settings.DATABASE_PASSWORD}"
+    f"@{settings.DATABASE_HOST}:{settings.DATABASE_PORT}/{settings.DATABASE_NAME}"
+)
 
 engine = create_async_engine(url=DATABASE_URL)
 
