@@ -38,7 +38,7 @@ async def get_current_user(request: Request, db: AsyncSession = Depends(get_db))
     if not session:
         raise HTTPException(status_code=401, detail="Session not found")
 
-    if session.expires_at < datetime.now(timezone.utc):
+    if session.expires_at < datetime.now(timezone.utc).replace(tzinfo=None):
         raise HTTPException(status_code=401, detail="Session expired")
 
     return session.user
