@@ -1,6 +1,11 @@
 import enum
-from sqlalchemy.orm import Mapped, mapped_column
+from typing import TYPE_CHECKING
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.database import Base
+
+
+if TYPE_CHECKING:
+    from app.models.session import Session
 
 
 class GenderEnum(str, enum.Enum):
@@ -16,3 +21,8 @@ class User(Base):
     first_name: Mapped[str]
     age: Mapped[int]
     gender: Mapped[GenderEnum]
+
+    sessions: Mapped[list["Session"]] = relationship(
+        "Session",
+        back_populates="user"
+    )

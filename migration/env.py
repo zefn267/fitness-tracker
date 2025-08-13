@@ -11,6 +11,7 @@ from app.db.database import Base, DATABASE_URL
 from app.models.user import User
 from app.models.workout import Workout
 from app.models.exercise import Exercise
+from app.models.session import Session
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
