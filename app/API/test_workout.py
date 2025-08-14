@@ -1,8 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.CRUD.create_workout import create_workout
-from app.CRUD.get_all_workouts import get_all_workouts
-from app.CRUD.get_workout import get_workout
+from app.CRUD.workout_operations import create_workout, get_all_workouts, get_workout
 from app.db.database import get_db
 from app.schemas.workout_create import WorkoutCreate
 from app.schemas.workout_info import WorkoutInfo

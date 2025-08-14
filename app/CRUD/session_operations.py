@@ -9,7 +9,6 @@ from datetime import datetime, timezone, timedelta
 async def create_session(db: AsyncSession, user_id: int, ttl_hours: int = 24):
     session_id = str(uuid.uuid4())
     expires_at = datetime.now(timezone.utc) + timedelta(hours=ttl_hours)
-    expires_at = expires_at.replace(tzinfo=None)
 
     session = Session(session_id=session_id, expires_at=expires_at, user_id=user_id)
 

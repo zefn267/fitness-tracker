@@ -1,5 +1,5 @@
 from fastapi import Depends, APIRouter, Request, Response, HTTPException, Form
-from app.core.auth import get_current_user, authenticate_user
+from app.services.auth_service import get_current_user, authenticate_user
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.database import get_db
 from app.CRUD.session_operations import create_session, delete_session
