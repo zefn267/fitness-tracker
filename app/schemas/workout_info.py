@@ -6,6 +6,8 @@ from datetime import date
 class WorkoutInfo(BaseModel):
     id: int
     date: date
+    name: str
+    workout_type: str
     exercises: Optional[List[ExerciseInfo]]
     description: Optional[str]
 
