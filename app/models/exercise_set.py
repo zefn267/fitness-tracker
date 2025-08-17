@@ -9,8 +9,6 @@ if TYPE_CHECKING:
 
 
 class ExerciseSet(Base):
-    __tablename__ = "exercise_sets"
-
     position: Mapped[int] = mapped_column(nullable=False)
     reps: Mapped[int] = mapped_column(nullable=False)
     rpe: Mapped[int] = mapped_column(nullable=False)

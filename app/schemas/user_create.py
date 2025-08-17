@@ -1,10 +1,5 @@
-import enum
 from pydantic import BaseModel
-
-
-class GenderEnum(str, enum.Enum):
-    MALE = "Мужской"
-    FEMALE = "Женский"
+from app.core.enums import GenderEnum
 
 
 class UserCreate(BaseModel):

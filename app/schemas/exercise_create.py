@@ -10,9 +10,8 @@ class ExerciseCreate(BaseModel):
     workout_id: int
     sets: list[ExerciseSetIn]
 
-    @staticmethod
     @field_validator('sets')
-    def validate_sets(v: list[ExerciseSetIn]):
+    def validate_sets(cls, v: list[ExerciseSetIn]):
         if not v:
             raise ValueError('sets must not be empty')
 

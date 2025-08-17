@@ -21,7 +21,7 @@ async def _load_exercise_info(db: AsyncSession, exercise_id: int) -> ExerciseInf
         )
     ).scalar_one_or_none()
     if not exercise:
-        raise ValueError("Exercise not found")
+        raise ValueError('Exercise not found')
 
     sets = [
         ExerciseSetIn(
@@ -81,7 +81,7 @@ async def update_set_by_position(
         weight: float | None = None
 ) -> ExerciseInfo:
     values = {}
-    if reps:
+    if reps is not None:
         values['reps'] = reps
     if rpe:
         values['rpe'] = rpe
@@ -111,11 +111,11 @@ async def delete_last_set(
     async with db.begin():
         count = await _count_sets(db, exercise_id)
         if count == 0:
-            raise ValueError("exercise has no sets")
+            raise ValueError('exercise has no sets')
         if count == 1:
             if not allow_delete_exercise:
-                raise ValueError("Cannot delete the last set")
-            await db.execute(delete(Exercise).where(ExerciseSet.exercise_id == exercise_id))
+                raise ValueError('Cannot delete the last set')
+            await db.execute(delete(Exercise).where(Exercise.id == exercise_id))
             return None
 
         max_pos = await db.scalar(
