@@ -6,6 +6,7 @@ from app.db.database import Base
 
 if TYPE_CHECKING:
     from app.models.session import Session
+    from app.models.workout import Workout
 
 
 class GenderEnum(str, enum.Enum):
@@ -24,5 +25,9 @@ class User(Base):
 
     sessions: Mapped[list["Session"]] = relationship(
         "Session",
+        back_populates="user"
+    )
+    workouts: Mapped[list["Workout"]] = relationship(
+        "Workout",
         back_populates="user"
     )

@@ -4,13 +4,13 @@ from app.CRUD.workout_operations import create_workout, get_all_workouts, get_wo
 from app.db.database import get_db
 from app.schemas.workout_create import WorkoutCreate
 from app.schemas.workout_info import WorkoutInfo
-
+from app.services.auth_service import get_current_user
 
 router = APIRouter(prefix="/workout", tags=["workout"])
 
 @router.post("/", response_model=WorkoutCreate)
-async def register_user(workout: WorkoutCreate, db: AsyncSession = Depends(get_db)):
-    new_workout = await create_workout(db, workout)
+async def register_user(workout: WorkoutCreate, db: AsyncSession = Depends(get_db), current_user = Depends(get_current_user)):
+    new_workout = await create_workout(db, workout, current_user.id)
 
     return new_workout
 
