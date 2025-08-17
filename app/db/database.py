@@ -5,8 +5,8 @@ from app.db.naming import camel_to_snake
 
 
 DATABASE_URL = (
-            f"postgresql+asyncpg://{settings.DATABASE_USER}:{settings.DATABASE_PASSWORD}"
-            f"@{settings.DATABASE_HOST}:{settings.DATABASE_PORT}/{settings.DATABASE_NAME}"
+            f'postgresql+asyncpg://{settings.DATABASE_USER}:{settings.DATABASE_PASSWORD}'
+            f'@{settings.DATABASE_HOST}:{settings.DATABASE_PORT}/{settings.DATABASE_NAME}'
         )
 
 engine = create_async_engine(url=DATABASE_URL)
@@ -15,10 +15,7 @@ async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 async def get_db():
     async with async_session_maker() as session:
-        try:
-            yield session
-        finally:
-            await session.close()
+        yield session
 
 
 class Base(AsyncAttrs, DeclarativeBase):

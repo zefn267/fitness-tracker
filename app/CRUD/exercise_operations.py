@@ -85,9 +85,9 @@ async def update_set_by_position(
         values['reps'] = reps
     if rpe:
         values['rpe'] = rpe
-    if rest_seconds:
+    if rest_seconds is not None:
         values['rest_seconds'] = rest_seconds
-    if weight:
+    if weight is not None:
         values['weight'] = weight
 
     if values:
