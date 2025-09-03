@@ -1,14 +1,11 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import ConfigDict
 from app.schemas.exercise_info import ExerciseInfo
 from typing import Optional, List
-from datetime import date
+from app.schemas.workout_base import WorkoutBase
 
-class WorkoutInfo(BaseModel):
+
+class WorkoutInfo(WorkoutBase):
     id: int
-    date: date
-    name: str
-    workout_type: str
-    exercises: Optional[List[ExerciseInfo]]
-    description: Optional[str]
+    exercises: Optional[List[ExerciseInfo]] = None
 
     model_config = ConfigDict(from_attributes=True)

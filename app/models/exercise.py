@@ -1,11 +1,13 @@
+from __future__ import annotations
 from sqlalchemy.orm import Mapped, relationship, mapped_column
 from sqlalchemy import ForeignKey, text
 from typing import Optional, TYPE_CHECKING
 from app.db.database import Base
+from app.models.exercise_set import ExerciseSet
+
 
 if TYPE_CHECKING:
     from .workout import Workout
-    from .exercise_set import ExerciseSet
 
 
 class Exercise(Base):
@@ -22,6 +24,6 @@ class Exercise(Base):
         "ExerciseSet",
         back_populates="exercise",
         cascade="all, delete-orphan",
-        order_by="ExerciseSet.position",
+        order_by=lambda: ExerciseSet.position,
         passive_deletes=True
     )
