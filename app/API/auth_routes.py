@@ -1,4 +1,5 @@
 from fastapi import Depends, APIRouter, Request, Response, HTTPException, Form, status
+from app.CRUD.user_operations import get_user_by_username
 from app.schemas.user_create import UserCreate
 from app.schemas.user_info import UserInfo
 from app.services.auth_service import get_current_user, authenticate_user
@@ -51,3 +52,13 @@ async def logout(req: Request, res: Response, db: AsyncSession = Depends(get_db)
             pass
 
     res.delete_cookie('session_id')
+
+
+@auth_router.get('/username')
+async def check_username(username: str, db: AsyncSession = Depends(get_db)):
+    result = await get_user_by_username(db, username)
+
+    if result:
+        return {'available': False}
+
+    return {'available': True}
