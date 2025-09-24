@@ -12,6 +12,8 @@ import { Input } from '@/components/ui/input'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Separator } from '@/components/ui/separator'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { toast } from "sonner";
+import { useRouter } from "next/router";
 
 const registerSchema = z.object({
     username: z.string().min(3, 'Логин должен быть не менее 3 символов'),
@@ -29,6 +31,7 @@ const registerSchema = z.object({
 type RegisterFormData = z.infer<typeof registerSchema>
 
 export default function RegisterPage() {
+    const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -85,6 +88,8 @@ export default function RegisterPage() {
                     password: values.password,
                 }),
             })
+            toast.success('Регистрация успешна!')
+            router.push('/login')
         } catch (e: any) {
             console.error('register error:', e?.message)
         } finally {
